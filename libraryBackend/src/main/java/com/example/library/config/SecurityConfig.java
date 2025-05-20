@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -55,7 +56,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable()) // 对于 SPA + Token，通常禁用 CSRF，因为 Token 本身提供了一定的保护
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/v1/auth/login", "/api/v1/users/register").permitAll() // 登录和注册接口允许匿名访问
+                        .requestMatchers("/api/v1/auth/login").permitAll() // 登录接口
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll() // 注册接口 (POST /api/v1/users)
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/api-docs/**").permitAll() // Swagger
                         .requestMatchers("/error").permitAll() // 允许访问 Spring Boot 默认的错误页面
                         .anyRequest().authenticated() // 其他所有 API 请求都需要认证

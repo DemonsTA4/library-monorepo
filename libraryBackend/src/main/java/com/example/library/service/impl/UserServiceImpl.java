@@ -46,8 +46,17 @@ public class UserServiceImpl implements UserService {
         }
         User user = convertToEntity(userDto);
         user.setId(null); // 确保是新用户
-        // 使用 PasswordEncoder 加密密码
-        user.setPassword(passwordEncoder.encode(userDto.getPassword())); // 取消注释并使用
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
+        // 👇👇👇 添加设置默认角色的逻辑 👇👇👇
+        if (user.getRole() == null || user.getRole().trim().isEmpty()) {
+            user.setRole("user"); // 设置默认角色为 "ROLE_USER"
+        }
+        // 👆👆👆 添加结束 👆👆👆
+
+        // 确保用户是激活状态 (如果你的 User 实体有 isEnabled 字段的话)
+        // user.setEnabled(true); // 示例，如果需要的话
+
         User savedUser = userRepository.save(user);
         return convertToDto(savedUser);
     }

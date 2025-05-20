@@ -6,6 +6,7 @@ import EditBookView from '../views/EditBookView.vue';
 import BookDetailView from '../views/BookDetailView.vue'; // 你之前导入为 DetailBookView，保持一致性或改为 BookDetailView
 import LoginView from '../views/LoginView.vue';
 import UsersView from '../views/UserView.vue'; // 假设你已经创建或将要创建 UsersView.vue 用于显示用户列表
+import RegisterView from '../views/RegisterView.vue';
 // 如果有单独的添加和编辑用户页面，也需要导入
 // import AddUserView from '../views/AddUserView.vue';
 // import EditUserView from '../views/EditUserView.vue';
@@ -54,6 +55,11 @@ const routes = [
     component: UsersView, // 确保你有一个 UsersView.vue
     meta: { requiresAuth: true, roles: ['ROLE_ADMIN'] } // 示例：只有管理员能访问用户管理
   },
+  {
+	path: '/register',
+	name: 'register',
+	component: RegisterView,
+  }
   // 如果有单独的添加和编辑用户页面，可以这样添加：
   // {
   //   path: '/users/add',

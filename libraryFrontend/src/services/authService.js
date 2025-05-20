@@ -68,8 +68,7 @@ export default {
    * @returns {Promise<Object>}
    */
   async register(userData) {
-    // 假设注册 API 是 /api/v1/users (POST) 或 /api/v1/auth/register
-    return apiClient.post('/users/register', userData); // 根据你的后端 API 调整端点
+      return apiClient.post('/users', userData); // 确保这与你的后端 UserController 匹配
   },
 
   /**
